@@ -1,6 +1,8 @@
 package com.verdea_api.verdea.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -15,14 +17,17 @@ public class Plant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "O nome é obrigatório")
     @Column(nullable = false)
     private String name;
 
+    @NotBlank(message = "A espécie é obrigatória")
     @Column(nullable = false)
     private String species;
 
+    @Min(value = 1, message = "A frequência de rega deve ser pelo menos 1 dia")
     @Column(name = "watering_frequency", nullable = false)
-    private Integer wateringFrequency; // em dias?
+    private Integer wateringFrequency;
 
     @Column(name = "ideal_soil_moisture", nullable = false)
     private Double idealSoilMoisture;
